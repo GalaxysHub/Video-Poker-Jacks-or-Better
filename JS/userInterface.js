@@ -28,31 +28,6 @@ Promise.all(promiseButtonsImgArr).then(()=>{
   drawButtons();
 });
 
-function displayPaytable(){
-  const maxW = cWidth/10;
-  const xMargin = cWidth/6;
-  const yTop = 50;
-  let yCord = yTop;
-  let xDif = (cWidth-maxW-xMargin)/(numCoins+1);
-  let yDif = (cHeight/2)/paytableMap.size;
-  const fontSize = cHeight/25;
-  ctx.fillStyle = 'white';
-  ctx.textAlign= 'center';
-  ctx.textBaseline = "middle";
-  ctx.font = fontSize+"px Arial";
-
-  paytableMap.forEach((value, key)=>{
-    ctx.fillText(key,xMargin,yCord);
-    for(let i = 1; i<=numCoins; i++){
-      ctx.fillText(value*i,xMargin+maxW+xDif*i,yCord);
-    }
-    yCord+=yDif;
-  })
-
-}
-
-displayPaytable();
-
 function setSideBtns(){
   const fontSize = btncHeight/2;
   const btnH = fontSize;
@@ -60,48 +35,46 @@ function setSideBtns(){
 
 const buttonsMap = new Map();
 
-//Separate into 2 functions
-function setPlayButton(){
-  BTNctx.textAlign = "center";
-  BTNctx.textBaseline = "alphabetic";
-  const xPos = cWidth/2,
-    yPos = btncHeight*.65;
-  const maxWid = cWidth/2;
-  const fontSize = btncHeight/2;
-  // BTNctx.clearRect(20,btncHeight/2-20,cWidth-40,btncHeight/2);
-  BTNctx.font = fontSize+"px Arial";
+(function setButtons(){
+  const xPos = cWidth/2, yPos = btncHeight*.65,
+    maxWid = cWidth/2, fontSize = btncHeight/2;
 
-  let msg;
-  if(draw){msg = "Deal";}
-  else{msg="Draw";}
-  BTNctx.fillText(msg,xPos,yPos,maxWid);
-
-  let btnWid = 3*fontSize,
+  const btnWid = 3*fontSize,
     btnHeight = fontSize,
     btnXPos = xPos-btnWid/2,
     btnYPos = yPos-fontSize*0.8,
     LSBtnXPos = cWidth/16,
     RSBtnXPos = cWidth/4;
 
-  BTNctx.strokeRect(btnXPos,btnYPos,btnWid,btnHeight);
   buttonsMap.set("Play Button",{img:'RedButtonMain',x:btnXPos,y:btnYPos,w:btnWid,h:btnHeight})
   buttonsMap.set("Left Side Arrow",{img:'LeftSideArrow',x:LSBtnXPos, y:btnYPos, w: btnHeight, h:btnHeight})
   buttonsMap.set("Right Side Arrow",{img:'RightSideArrow',x:RSBtnXPos, y:btnYPos, w: btnHeight, h:btnHeight})
+})()
+
+function displayDealDraw(){
+  const xPos = cWidth/2, yPos = btncHeight*.65,
+    maxWid = cWidth/2, fontSize = btncHeight/2;
+
+  BTNctx.font = fontSize+"px Arial";
+  BTNctx.textBaseline = "alphabetic";
+  BTNctx.textAlign = "center";
+
+  let msg;
+  if(draw){msg = "Deal";}
+  else{msg="Draw";}
+  BTNctx.fillText(msg,xPos,yPos,maxWid);
 }
+displayDealDraw();
 
-setPlayButton();
 
-function displayBet(){
-
+let displayBet = function(){
   const fontSize = btncHeight/4;
-  // BGBTNctx.textAlign = "center";
-  // BGBTNctx.textBaseline = "hanging";
-  // BGBTNctx.font = fontSize+"px Arial";
 
   BTNctx.textAlign = "center";
   BTNctx.textBaseline = "hanging";
   BTNctx.font = fontSize+"px Arial";
 
+  account.bet=numCoins*minBet;
   const LSA = buttonsMap.get('Left Side Arrow');
   let betXPos = (LSA.x+buttonsMap.get('Right Side Arrow').x+LSA.w)/2;
   let betYPos = (LSA.y);
@@ -109,21 +82,33 @@ function displayBet(){
   BTNctx.fillText('Bet', betXPos, betYPos);
   BTNctx.fillText(account.bet, betXPos, betYPos+fontSize);
 }
-
 displayBet();
 
 function incBet(){
-  if(account.bet<maxBet){
-    account.bet+=minBet;
-    console.log('increasing bet');
+  const PT = PTCords;
+  const boxH = Math.floor(cHeight/15), boxW = Math.floor(cWidth/15);
+  anictx.fillStyle = 'yellow';
+  anictx.globalAlpha = 0.6;
+
+  anictx.clearRect(0,0,cWidth,cHeight);
+  anictx.fillRect(PT.xMargin+PT.maxW+PT.xDif*account.bet/100-boxW/2, PT.yTop-boxH/2,boxW,PT.yDif*PTKeys.length);
+  if(account.bet<maxBet&&draw){
+    numCoins+=1;
   }
   displayBet();
 }
 
 function decBet(){
-  console.log('decBet clicked');
-  if(account.bet>minBet){
-    account.bet-=minBet;
+  const PT = PTCords;
+  const boxH = Math.floor(cHeight/15), boxW = Math.floor(cWidth/15);
+  anictx.fillStyle = 'yellow';
+  anictx.globalAlpha = 0.6;
+
+  anictx.clearRect(0,0,cWidth,cHeight);
+  anictx.fillRect(PT.xMargin+PT.maxW+PT.xDif*account.bet/100-boxW/2, PT.yTop-boxH/2,boxW,PT.yDif*PTKeys.length);
+  if(account.bet>minBet&&draw){
+    numCoins-=1;
+
   }
   displayBet();
 }
@@ -205,14 +190,12 @@ btnCanvas.addEventListener('mousedown', function(evt){
     }
     //Draw btns in background canvas and delete line below
     BTNctx.clearRect(playBtn.x,playBtn.y,playBtn.w,playBtn.h)
-    setPlayButton();// Change only play button later
+    displayDealDraw();// Change only play button later
   }
 
-  if(isInside(mousePos,buttonsMap.get("Left Side Arrow"))){
-    decBet();
-  }
-  if(isInside(mousePos,buttonsMap.get("Right Side Arrow"))){
-    incBet();
-  }
+  if(isInside(mousePos,buttonsMap.get("Left Side Arrow"))){decBet();}
+
+  if(isInside(mousePos,buttonsMap.get("Right Side Arrow"))){incBet();}
+
   displayBalance();
 },false);

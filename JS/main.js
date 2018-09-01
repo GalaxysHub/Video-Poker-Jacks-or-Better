@@ -8,13 +8,16 @@ const xMargin = 0;
 const bCanvas = document.getElementById("bannerCanvas")
 const BGCanvas = document.getElementById('BGCanvas');
 const mainCanvas = document.getElementById('mainCanvas');
+const aniCanvas = document.getElementById('aniCanvas');
 const glassCanvas = document.getElementById('glassCanvas');
 const BGctx = BGCanvas.getContext('2d');
 const ctx = mainCanvas.getContext('2d');
+const anictx = aniCanvas.getContext('2d');
 const xBorder = cWidth/50;
 
-const numCoins = 5;
-const minBet = 100, maxBet = minBet*numCoins;
+const maxCoins = 5;
+const minBet = 100, maxBet = minBet*maxCoins;
+let numCoins = 1;
 
 const numCards = 5;
 const xDif = cWidth/20;
@@ -28,12 +31,39 @@ const cardHS = cardWS*HWr;
 ctx.globalCompositionOperation='destination-over';
 BGctx.globalCompositionOperation='destination-over';
 
-bCanvas.style.position = mainCanvas.style.position = BGCanvas.style.position = glassCanvas.style.position = 'absolute';
-mainCanvas.width = BGCanvas.width = glassCanvas.width = cWidth;
-mainCanvas.height = BGCanvas.height = glassCanvas.height = cHeight;
+bCanvas.style.position = mainCanvas.style.position = BGCanvas.style.position = aniCanvas.style.position = glassCanvas.style.position = 'absolute';
+mainCanvas.width = BGCanvas.width = aniCanvas.width = glassCanvas.width = cWidth;
+mainCanvas.height = BGCanvas.height = aniCanvas.height =  glassCanvas.height = cHeight;
 
 BGCanvas.style.zIndex = -1;
 glassCanvas.style.zIndex = -1;
+aniCanvas.style.zIndex = 1;
+mainCanvas.style.zIndex = 5;
+
+const paytableMap = new Map([
+  ["Coins Wagered", 1],
+  ["Royal Flush", 250],
+  ["Straight Flush", 50],
+  ["4 of a Kind", 25],
+  ["Full House", 9],
+  ["Flush", 6],
+  ["Straight", 4],
+  ["3 of a Kind", 3],
+  ["2 Pair", 2],
+  ["Jacks or Better", 1],
+])
+
+const PTKeys = [...paytableMap.keys()];
+
+const PTCords = {
+  maxW: cWidth/10,
+  xMargin: Math.floor(cWidth/6),
+  yTop: Math.floor(cHeight/15),
+  yDif: (cHeight/2)/paytableMap.size,
+  fontSize: cHeight/25
+}
+PTCords.xDif = Math.floor((cWidth-PTCords.maxW-PTCords.xMargin)/(maxCoins+1))
+PTCords.yDif = Math.floor((cHeight/2)/paytableMap.size);
 
 const setUp = (function(){
   const cardPicLoc = "./Images/Cards/";
@@ -66,6 +96,24 @@ const setUp = (function(){
   function drawBG(){
     BGctx.drawImage(miscImgMap.get('GalaxyBackground'),0,0,cWidth,cHeight);
   }
+
+  function displayPaytable(){
+    let yCord = PTCords.yTop;
+
+    ctx.font = PTCords.fontSize+"px Arial";
+    ctx.fillStyle = 'white';
+    ctx.textAlign= 'center';
+    ctx.textBaseline = "middle";
+
+    paytableMap.forEach((value, key)=>{
+      ctx.fillText(key,PTCords.xMargin,yCord);
+      for(let i = 1; i<=maxCoins; i++){
+        ctx.fillText(value*i,PTCords.xMargin+PTCords.maxW+PTCords.xDif*i,yCord);
+      }
+      yCord+=PTCords.yDif;
+    })
+  }
+  displayPaytable();
 
   let hand = new Array(numCards);//Array of card objects
   let deck;

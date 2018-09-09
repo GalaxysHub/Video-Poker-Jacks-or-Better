@@ -84,6 +84,7 @@ let displayBet = function(){
 }
 displayBet();
 
+//simplify incBet and decBet
 function incBet(){
   const PT = PTCords;
   const boxH = Math.floor(cHeight/15), boxW = Math.floor(cWidth/15);
@@ -131,14 +132,13 @@ displayBalance();
 BTNctx.strokeRect(0, 0, btnCanvas.width, btnCanvas.height);
 
 function drawButtons(){
-
   buttonsMap.forEach((b)=>{
     BGBTNctx.drawImage(buttonsImgMap.get(b.img),b.x,b.y,b.w,b.h);
   })
 }
 
-function getMousePos(mainCanvas, evt){
-  var rect = mainCanvas.getBoundingClientRect();
+function getMousePos(cvn, evt){
+  var rect = cvn.getBoundingClientRect();
   return{
     x: evt.clientX - rect.left,
     y: evt.clientY - rect.top
@@ -184,6 +184,7 @@ btnCanvas.addEventListener('mousedown', function(evt){
       draw = true;
       discardAndDraw();
       updateBalance();
+      glassCanvas.style.zIndex = 10;
     }else{
       draw=false;
       newHand();

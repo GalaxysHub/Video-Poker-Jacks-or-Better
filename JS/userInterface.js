@@ -92,10 +92,10 @@ function incBet(){
   anictx.globalAlpha = 0.6;
 
   anictx.clearRect(0,0,cWidth,cHeight);
-  anictx.fillRect(PT.xMargin+PT.maxW+PT.xDif*account.bet/100-boxW/2, PT.yTop-boxH/2,boxW,PT.yDif*PTKeys.length);
   if(account.bet<maxBet&&draw){
     numCoins+=1;
   }
+  anictx.fillRect(PT.xMargin+PT.maxW+PT.xDif*numCoins-boxW/2, PT.yTop-boxH/2,boxW,PT.yDif*PTKeys.length);
   displayBet();
 }
 
@@ -106,11 +106,10 @@ function decBet(){
   anictx.globalAlpha = 0.6;
 
   anictx.clearRect(0,0,cWidth,cHeight);
-  anictx.fillRect(PT.xMargin+PT.maxW+PT.xDif*account.bet/100-boxW/2, PT.yTop-boxH/2,boxW,PT.yDif*PTKeys.length);
   if(account.bet>minBet&&draw){
     numCoins-=1;
-
   }
+  anictx.fillRect(PT.xMargin+PT.maxW+PT.xDif*numCoins-boxW/2, PT.yTop-boxH/2,boxW,PT.yDif*PTKeys.length);
   displayBet();
 }
 
@@ -126,7 +125,6 @@ function displayBalance(){
   BTNctx.textAlign = 'left'
   BTNctx.fillText("  "+account.balance,xPos,yPos);
 }
-
 displayBalance();
 
 BTNctx.strokeRect(0, 0, btnCanvas.width, btnCanvas.height);
@@ -190,12 +188,13 @@ btnCanvas.addEventListener('mousedown', function(evt){
       newHand();
     }
     //Draw btns in background canvas and delete line below
-    BTNctx.clearRect(playBtn.x,playBtn.y,playBtn.w,playBtn.h)
-    displayDealDraw();// Change only play button later
+    if(canPlay){
+      BTNctx.clearRect(playBtn.x,playBtn.y,playBtn.w,playBtn.h)
+      displayDealDraw();// Change only play button later
+    }
   }
 
   if(isInside(mousePos,buttonsMap.get("Left Side Arrow"))){decBet();}
-
   if(isInside(mousePos,buttonsMap.get("Right Side Arrow"))){incBet();}
 
   displayBalance();

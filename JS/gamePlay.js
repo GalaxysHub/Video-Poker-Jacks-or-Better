@@ -6,7 +6,10 @@ const account = {
 }
 
 let draw = false;
+let canPlay = true;
 let hand = setUp.hand;
+const winningSound = new asyncHelperFunctions.Sound('./Sounds/ElectroWin.wav');
+
 
 function discardAndDraw(){
   for(let i = 0; i<numCards; i++){
@@ -23,17 +26,19 @@ function discardAndDraw(){
 }
 
 function newHand(){
-  let newBalance = account.balance-=account.bet;
-
+  let newBalance = account.balance-account.bet;
   anictx.clearRect(0,0,cWidth,cHeight);
   if(newBalance<0){
-    glassCanvas.zindex = 1;
+    glassCanvas.style.zIndex = 1;
+    canPlay = false;
     console.log('Insufficient Balance');
-  }else{account.balance = newBalance;}
-
-  hand = setUp.dealHand();
-  setUp.drawCards();
-  glassCanvas.style.zIndex = -1;
+  }else{
+    canPlay = true;
+    account.balance = newBalance;
+    hand = setUp.dealHand();
+    setUp.drawCards();
+    glassCanvas.style.zIndex = -1;
+  }
 }
 
 function findWinners(){
@@ -85,7 +90,7 @@ function findWinners(){
       }else{
         return displayWinners('Flush');
       }
-      
+
     }else{
       return displayWinners('Flush');
     }
@@ -111,6 +116,8 @@ function displayWinners(winner){
 }
 
 function updateBalance(){
-  account.balance+=findWinners();
+  let payout = findWinners();
+  if(payout!=0){console.log('play sound');winningSound.play();}
+  account.balance+=payout;
   console.log('Balance: ', account.balance);
 }

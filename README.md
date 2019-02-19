@@ -40,8 +40,6 @@ https://www.fontsquirrel.com/
 ### Images
 Chip images made with Paint 3D
 
-Bicycle Playing Cards
-
 Buttons created with https://dabuttonfactory.com/
 
 All other images found with Google Images

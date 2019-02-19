@@ -1,4 +1,7 @@
 # Video-Poker-Jacks-or-Better-Classic
+
+## Description
+
 HTML5 Video Poker Jacks or Better Classic
 
 Written in pure Vanilla Javascript with no third-party libraries.  

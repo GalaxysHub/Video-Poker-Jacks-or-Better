@@ -23,11 +23,11 @@ https://wizardofodds.com/games/three-card-poker/
 
 ## Game Features
 
-Click the Pair+ region to make a pair plus bet.
+Click on a card to keep it.
 
-Click the Ante region to make an ante bet.
+Click draw to discard unselect cards and draw new ones. Click Deal to deal new hand.
 
-Double click a stack to remove it.
+Change bet size by clicking arrows before dealing new hand.
 
 ## Third Party Contributions
 

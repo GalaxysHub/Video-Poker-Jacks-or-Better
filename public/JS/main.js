@@ -1,6 +1,6 @@
 "use strict";
 
-const cWidth = Math.floor(window.innerWidth*0.98);
+const cWidth = Math.floor(1000);
 const cHeight = cWidth*0.70;
 const cShiftY = 0;
 const xMargin = 0;
@@ -62,7 +62,8 @@ const PTCords = {
   yDif: (cHeight/2)/paytableMap.size,
   fontSize: cHeight/25
 }
-PTCords.xDif = Math.floor((cWidth-PTCords.maxW-PTCords.xMargin)/(maxCoins+1))
+
+PTCords.xDif = Math.floor((cWidth-PTCords.maxW-PTCords.xMargin)/(maxCoins+1));
 PTCords.yDif = Math.floor((cHeight/2)/paytableMap.size);
 
 const setUp = (function(){

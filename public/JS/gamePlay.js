@@ -10,7 +10,6 @@ let canPlay = true;
 let hand = setUp.hand;
 const winningSound = new asyncHelperFunctions.Sound('./Sounds/ElectroWin.wav');
 
-
 function discardAndDraw(){
   for(let i = 0; i<numCards; i++){
     let c = hand[i];

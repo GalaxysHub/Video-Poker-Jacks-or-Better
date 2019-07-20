@@ -1,0 +1,23 @@
+{
+  "name": "video-poker-jacks-or-better-classic",
+  "version": "1.0.0",
+  "description": "HTML5 Video Poker Jacks or Better Classic",
+  "main": "index.js",
+  "start": "node server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GalaxysHub/Video-Poker-Jacks-or-Better-Classic.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GalaxysHub/Video-Poker-Jacks-or-Better-Classic/issues"
+  },
+  "homepage": "https://github.com/GalaxysHub/Video-Poker-Jacks-or-Better-Classic#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}

@@ -1,5 +1,4 @@
-# Video-Poker-Jacks-or-Better-Classic
-
+# Video-Poker-Jacks-or-Better
 ## Description
 
 HTML5 Video Poker Jacks or Better Classic

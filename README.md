@@ -15,7 +15,7 @@ See deployed app here: https://video-poker-demo.herokuapp.com/VideoPoker.html
 
 See game rules here:
 
-https://wizardofodds.com/games/three-card-poker/
+https://wizardofodds.com/games/video-poker/strategy/jacks-or-better/9-6/simple/
 
 ## Game Features
 

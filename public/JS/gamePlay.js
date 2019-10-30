@@ -51,7 +51,7 @@ function findWinners(){
   ctx.shadowOffsetY = cHeight/200;
   ctx.shadowColor = "rgba(0,0,0,0.5)";
   ctx.shadowBlur = 4;
-  ctx.font = cHeight/5+"px Arial";
+  ctx.font = cHeight/5+"px TheBlacklist";
   let nDoubles=0,
     nTrips=0,
     pairs = [];

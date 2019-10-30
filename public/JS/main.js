@@ -1,6 +1,6 @@
 "use strict";
 
-const cWidth = Math.floor(1000);
+const cWidth = Math.floor(window.innerWidth*0.98);
 const cHeight = cWidth*0.70;
 const cShiftY = 0;
 const xMargin = 0;
@@ -101,7 +101,7 @@ const setUp = (function(){
   function displayPaytable(){
     let yCord = PTCords.yTop;
 
-    ctx.font = PTCords.fontSize+"px Arial";
+    ctx.font = PTCords.fontSize+"px Chela";
     ctx.fillStyle = 'white';
     ctx.textAlign= 'center';
     ctx.textBaseline = "middle";

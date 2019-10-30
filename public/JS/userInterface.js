@@ -55,7 +55,7 @@ function displayDealDraw(){
   const xPos = cWidth/2, yPos = btncHeight*.65,
     maxWid = cWidth/2, fontSize = btncHeight/2;
 
-  BTNctx.font = fontSize+"px Arial";
+  BTNctx.font = fontSize+"px Chela";
   BTNctx.textBaseline = "alphabetic";
   BTNctx.textAlign = "center";
 
@@ -72,7 +72,7 @@ let displayBet = function(){
 
   BTNctx.textAlign = "center";
   BTNctx.textBaseline = "hanging";
-  BTNctx.font = fontSize+"px Arial";
+  BTNctx.font = fontSize+"px Chela";
 
   account.bet=numCoins*minBet;
   const LSA = buttonsMap.get('Left Side Arrow');
@@ -116,7 +116,7 @@ function decBet(){
 function displayBalance(){
   const fontSize = btncHeight/3;
   BTNctx.textBaseline = "middle";
-  BTNctx.font = fontSize+"px Arial";
+  BTNctx.font = fontSize+"px TheBlacklist";
   let xPos = cWidth*0.8;
   let yPos = btncHeight/2
   BTNctx.clearRect(cWidth*0.6,0,cWidth*0.4,btncHeight);

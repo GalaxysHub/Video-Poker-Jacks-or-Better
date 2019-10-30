@@ -1,7 +1,17 @@
 "use strict";
 
-const cWidth = Math.floor(window.innerWidth*0.98);
-const cHeight = cWidth*0.70;
+let cWidth, cHeight;
+
+const WHr = 0.65;
+
+if(window.innerWidth*WHr>window.innerHeight){
+  cHeight = Math.floor(window.innerHeight*0.95);
+  cWidth = cHeight/WHr;
+}else{
+  cWidth = Math.floor(window.innerWidth*0.98);
+  cHeight = cWidth*WHr;
+}
+
 const cShiftY = 0;
 const xMargin = 0;
 

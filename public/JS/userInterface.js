@@ -2,7 +2,7 @@
 
 const btnCanvas = document.getElementById('btnCanvas');
 const BGBtnCanvas = document.getElementById('BGBtnCanvas');
-const btncHeight = cWidth*3/20;
+const btncHeight = cHeight*1/5;
 
 BGBtnCanvas.style.position = btnCanvas.style.position = "absolute";
 BGBtnCanvas.style.top = btnCanvas.style.top = cShiftY+cHeight+'px';
